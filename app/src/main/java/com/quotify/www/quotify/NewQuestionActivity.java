@@ -13,7 +13,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.quotify.www.quotify.models.Post;
+import com.quotify.www.quotify.models.Question;
 import com.quotify.www.quotify.models.User;
 
 import java.util.HashMap;
@@ -21,29 +21,29 @@ import java.util.Map;
 
 public class NewQuestionActivity extends com.quotify.www.quotify.BaseActivity {
 
-    private static final String TAG = "NewPostActivity";
+    private static final String TAG = "NewQuestionActivity";
     private static final String REQUIRED = "Required";
 
     // [START declare_database_ref]
     private DatabaseReference mDatabase;
     // [END declare_database_ref]
 
-    private EditText mTitleField;
+    private EditText mAnswerField;
     private EditText mBodyField;
     private FloatingActionButton mSubmitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_post);
+        setContentView(R.layout.activity_new_question);
 
         // [START initialize_database_ref]
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END initialize_database_ref]
 
-        mTitleField = (EditText) findViewById(R.id.field_title);
+        mAnswerField = (EditText) findViewById(R.id.field_title);
         mBodyField = (EditText) findViewById(R.id.field_body);
-        mSubmitButton = (FloatingActionButton) findViewById(R.id.fab_submit_post);
+        mSubmitButton = (FloatingActionButton) findViewById(R.id.fab_submit_question);
 
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,12 +54,17 @@ public class NewQuestionActivity extends com.quotify.www.quotify.BaseActivity {
     }
 
     private void submitPost() {
-        final String title = mTitleField.getText().toString();
+        final String answer = mAnswerField.getText().toString();
         final String body = mBodyField.getText().toString();
 
         // Title is required
-        if (TextUtils.isEmpty(title)) {
-            mTitleField.setError(REQUIRED);
+        if (TextUtils.isEmpty(answer)) {
+            mAnswerField.setError(REQUIRED);
+            return;
+        }
+
+        if (answer.split(" ").length != 2) {
+            mAnswerField.setError("Answer must have two words.");
             return;
         }
 
@@ -69,9 +74,9 @@ public class NewQuestionActivity extends com.quotify.www.quotify.BaseActivity {
             return;
         }
 
-        // Disable button so there are no multi-posts
+        // Disable button so there are no multi-questions
         setEditingEnabled(false);
-        Toast.makeText(this, "Posting...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Saving...", Toast.LENGTH_SHORT).show();
 
         // [START single_value_read]
         final String userId = getUid();
@@ -90,8 +95,8 @@ public class NewQuestionActivity extends com.quotify.www.quotify.BaseActivity {
                                     "Error: could not fetch user.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            // Write new post
-                            writeNewPost(userId, user.username, title, body);
+                            // Write new question
+                            addNewQuestion(userId, user.username, body, answer);
                         }
 
                         // Finish this Activity, back to the stream
@@ -112,7 +117,7 @@ public class NewQuestionActivity extends com.quotify.www.quotify.BaseActivity {
     }
 
     private void setEditingEnabled(boolean enabled) {
-        mTitleField.setEnabled(enabled);
+        mAnswerField.setEnabled(enabled);
         mBodyField.setEnabled(enabled);
         if (enabled) {
             mSubmitButton.setVisibility(View.VISIBLE);
@@ -122,16 +127,17 @@ public class NewQuestionActivity extends com.quotify.www.quotify.BaseActivity {
     }
 
     // [START write_fan_out]
-    private void writeNewPost(String userId, String username, String title, String body) {
-        // Create new post at /user-posts/$userid/$postid and at
-        // /posts/$postid simultaneously
-        String key = mDatabase.child("posts").push().getKey();
-        Post post = new Post(userId, username, title, body);
-        Map<String, Object> postValues = post.toMap();
+    private void addNewQuestion(String userId, String username, String body, String answer) {
+        // Create new question at /user-questions/$userid/$questionid and at
+        // /questions/$questionid simultaneously
+        final long timestamp = System.currentTimeMillis();
+        String key = mDatabase.child("questions").push().getKey();
+        Question question = new Question(userId, username, body, answer, timestamp);
+        Map<String, Object> questionValues = question.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/posts/" + key, postValues);
-        childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
+        childUpdates.put("/questions/" + key, questionValues);
+        childUpdates.put("/user-questions/" + userId + "/" + key, questionValues);
 
         mDatabase.updateChildren(childUpdates);
     }
