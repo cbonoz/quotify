@@ -20,7 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.quotify.www.quotify.models.User;
 
 public class SignInActivity extends BaseActivity implements View.OnClickListener {
-
     private static final String TAG = "SignInActivity";
 
     private DatabaseReference mDatabase;
@@ -31,9 +30,31 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     private Button mSignInButton;
     private Button mSignUpButton;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private void loadSplash() {
+        setContentView(R.layout.activity_splash);
+
+        Thread welcomeThread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    super.run();
+                    sleep(3000);  // Delay of 3 seconds.
+                } catch (Exception e) {
+
+                } finally {
+                    // Check auth on Activity start
+                    if (mAuth.getCurrentUser() != null) {
+                        onAuthSuccess(mAuth.getCurrentUser());
+                    } else {
+                        loadSignInUI();
+                    }
+                }
+            }
+        };
+        welcomeThread.start();
+    }
+
+    private void loadSignInUI() {
         setContentView(R.layout.activity_sign_in);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -51,13 +72,15 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        loadSplash();
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
-
-        // Check auth on Activity start
-        if (mAuth.getCurrentUser() != null) {
-            onAuthSuccess(mAuth.getCurrentUser());
-        }
+        // Auth check used to be here.
     }
 
     private void signIn() {

@@ -19,24 +19,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.Transaction;
-import com.quotify.www.quotify.PostDetailActivity;
+import com.quotify.www.quotify.QuestionDetailActivity;
 import com.quotify.www.quotify.R;
 import com.quotify.www.quotify.models.Post;
-import com.quotify.www.quotify.viewholder.PostViewHolder;
+import com.quotify.www.quotify.viewholder.QuestionViewHolder;
 
-public abstract class PostListFragment extends Fragment {
+public abstract class QuestionListFragment extends Fragment {
 
-    private static final String TAG = "PostListFragment";
+    private static final String TAG = "QuestionListFragment";
 
     // [START define_database_reference]
     private DatabaseReference mDatabase;
     // [END define_database_reference]
 
-    private FirebaseRecyclerAdapter<Post, PostViewHolder> mAdapter;
+    private FirebaseRecyclerAdapter<Post, QuestionViewHolder> mAdapter;
     private RecyclerView mRecycler;
     private LinearLayoutManager mManager;
 
-    public PostListFragment() {}
+    public QuestionListFragment() {}
 
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container,
@@ -66,10 +66,10 @@ public abstract class PostListFragment extends Fragment {
 
         // Set up FirebaseRecyclerAdapter with the Query
         Query postsQuery = getQuery(mDatabase);
-        mAdapter = new FirebaseRecyclerAdapter<Post, PostViewHolder>(Post.class, R.layout.item_post,
-                PostViewHolder.class, postsQuery) {
+        mAdapter = new FirebaseRecyclerAdapter<Post, QuestionViewHolder>(Post.class, R.layout.item_post,
+                QuestionViewHolder.class, postsQuery) {
             @Override
-            protected void populateViewHolder(final PostViewHolder viewHolder, final Post model, final int position) {
+            protected void populateViewHolder(final QuestionViewHolder viewHolder, final Post model, final int position) {
                 final DatabaseReference postRef = getRef(position);
 
                 // Set click listener for the whole post view
@@ -77,9 +77,9 @@ public abstract class PostListFragment extends Fragment {
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Launch PostDetailActivity
-                        Intent intent = new Intent(getActivity(), PostDetailActivity.class);
-                        intent.putExtra(PostDetailActivity.EXTRA_POST_KEY, postKey);
+                        // Launch QuestionDetailActivity
+                        Intent intent = new Intent(getActivity(), QuestionDetailActivity.class);
+                        intent.putExtra(QuestionDetailActivity.EXTRA_POST_KEY, postKey);
                         startActivity(intent);
                     }
                 });

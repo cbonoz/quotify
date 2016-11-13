@@ -19,18 +19,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.quotify.www.quotify.models.User;
 import com.quotify.www.quotify.models.Comment;
 import com.quotify.www.quotify.models.Post;
+import com.quotify.www.quotify.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostDetailActivity extends BaseActivity implements View.OnClickListener {
+public class UserDetailActivity extends BaseActivity implements View.OnClickListener {
 
-    private static final String TAG = "PostDetailActivity";
+    private static final String TAG = "UserDetailActivity";
 
-    public static final String EXTRA_POST_KEY = "post_key";
+    public static final String EXTRA_USER_KEY = "user_key";
 
     private DatabaseReference mPostReference;
     private DatabaseReference mCommentsReference;
@@ -51,9 +51,9 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
         setContentView(R.layout.activity_post_detail);
 
         // Get post key from intent
-        mPostKey = getIntent().getStringExtra(EXTRA_POST_KEY);
+        mPostKey = getIntent().getStringExtra(EXTRA_USER_KEY);
         if (mPostKey == null) {
-            throw new IllegalArgumentException("Must pass EXTRA_POST_KEY");
+            throw new IllegalArgumentException("Must pass EXTRA_USER_KEY");
         }
 
         // Initialize Database
@@ -98,7 +98,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
                 // Getting Post failed, log a message
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
                 // [START_EXCLUDE]
-                Toast.makeText(PostDetailActivity.this, "Failed to load post.",
+                Toast.makeText(UserDetailActivity.this, "Failed to load post.",
                         Toast.LENGTH_SHORT).show();
                 // [END_EXCLUDE]
             }

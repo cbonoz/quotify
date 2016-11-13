@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.quotify.www.quotify.NewPostActivity">
+    tools:context="com.quotify.www.quotify.NewQuestionActivity">
 
     <TextView
         android:text="New Question"
@@ -52,6 +52,6 @@
         android:layout_marginTop="90dp"
         android:layout_below="@+id/field_answer"
         android:layout_centerHorizontal="true"
-        app:backgroundTint="?attr/colorSuccess" />
+        app:backgroundTint="?attr/colorPrimary" />
 
 </RelativeLayout>

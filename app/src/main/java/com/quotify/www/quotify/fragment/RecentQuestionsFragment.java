@@ -3,7 +3,7 @@ package com.quotify.www.quotify.fragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 
-public class RecentQuestionsFragment extends PostListFragment {
+public class RecentQuestionsFragment extends QuestionListFragment {
 
     public RecentQuestionsFragment() {}
 

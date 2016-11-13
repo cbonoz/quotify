@@ -15,7 +15,7 @@ public class Question {
     public String body;
     public String answer;
     public long timestamp;
-    public int starCount = 0;
+    public int starCount;
 
     public Map<String, Boolean> stars = new HashMap<>();
 
@@ -26,9 +26,10 @@ public class Question {
     public Question(String uid, String author, String body, String answer, long timestamp) {
         this.uid = uid;
         this.author = author;
-        this.answer = answer;
         this.body = body;
+        this.answer = answer;
         this.timestamp = timestamp;
+        this.starCount = 0;
     }
 
     // [START post_to_map]

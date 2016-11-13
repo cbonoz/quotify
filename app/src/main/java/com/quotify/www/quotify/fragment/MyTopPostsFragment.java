@@ -3,7 +3,7 @@ package com.quotify.www.quotify.fragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 
-public class MyTopPostsFragment extends PostListFragment {
+public class MyTopPostsFragment extends QuestionListFragment {
 
     public MyTopPostsFragment() {}
 

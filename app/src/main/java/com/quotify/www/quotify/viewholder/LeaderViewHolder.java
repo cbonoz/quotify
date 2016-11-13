@@ -8,15 +8,16 @@ import android.widget.TextView;
 import com.quotify.www.quotify.R;
 import com.quotify.www.quotify.models.Post;
 
-public class PostViewHolder extends RecyclerView.ViewHolder {
+public class LeaderViewHolder extends RecyclerView.ViewHolder {
 
     public TextView titleView;
     public TextView authorView;
     public ImageView starView;
     public TextView numStarsView;
     public TextView bodyView;
+    public TextView answerView;
 
-    public PostViewHolder(View itemView) {
+    public LeaderViewHolder(View itemView) {
         super(itemView);
 
         titleView = (TextView) itemView.findViewById(R.id.post_title);

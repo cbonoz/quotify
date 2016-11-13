@@ -27,6 +27,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.quotify.www.quotify.fragment.AnswerFragment;
+import com.quotify.www.quotify.fragment.LeaderboardFragment;
+import com.quotify.www.quotify.fragment.MyQuestionsFragment;
 
 public class  MainActivity extends com.quotify.www.quotify.BaseActivity {
 
@@ -48,9 +51,9 @@ public class  MainActivity extends com.quotify.www.quotify.BaseActivity {
 //                    new com.quotify.www.quotify.fragment.MyTopPostsFragment(),
 //            };
               private final Fragment[] mFragments = new Fragment[] {
-                    new com.quotify.www.quotify.fragment.RecentPostsFragment(),
-                    new com.quotify.www.quotify.fragment.MyPostsFragment(),
-                    new com.quotify.www.quotify.fragment.MyTopPostsFragment(),
+                    new LeaderboardFragment(),
+                    new AnswerFragment(),
+                    new MyQuestionsFragment()
               };
             private final String[] mFragmentNames = new String[] {
                     getString(R.string.heading_leaderboard),
@@ -77,10 +80,10 @@ public class  MainActivity extends com.quotify.www.quotify.BaseActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
         // Button launches NewPostActivity
-        findViewById(R.id.fab_new_post).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.fab_new_question).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, com.quotify.www.quotify.NewPostActivity.class));
+                startActivity(new Intent(MainActivity.this, NewQuestionActivity.class));
             }
         });
     }

@@ -28,7 +28,7 @@ import java.util.List;
 
 public class QuestionDetailActivity extends BaseActivity implements View.OnClickListener {
 
-    private static final String TAG = "PostDetailActivity";
+    private static final String TAG = "QuestionDetailActivity";
 
     public static final String EXTRA_POST_KEY = "post_key";
 
@@ -53,7 +53,7 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
         // Get post key from intent
         mPostKey = getIntent().getStringExtra(EXTRA_POST_KEY);
         if (mPostKey == null) {
-            throw new IllegalArgumentException("Must pass EXTRA_POST_KEY");
+            throw new IllegalArgumentException("Must pass EXTRA_USER_KEY");
         }
 
         // Initialize Database
