@@ -1,2 +1,15 @@
 # quotify
 Android Base Project App using Firebase and real time database sync.
+
+TwoWords --
+3 tabs: Leaderboard, Answer, My Questions, (? Past Questions)
+1. Leaderboard: scores of users that are the most successful at responding to
+2. questions that have two words.
+Answer: User receives constant stream of two word questions.
+3. My Questions: Each individual user has the ability to add new questions from
+the database - other users can upvote or downvote depending on the quality.
+This user has the ability to delete, edit, or add new questions from this
+screen.
+4. ? Past questions: Users can revisit the questions that have already answered
+   and see stats on how well they have performed.
+

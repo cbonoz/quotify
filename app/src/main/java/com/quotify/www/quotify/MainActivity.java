@@ -42,15 +42,20 @@ public class  MainActivity extends com.quotify.www.quotify.BaseActivity {
 
         // Create the adapter that will return a fragment for each section
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
-            private final Fragment[] mFragments = new Fragment[] {
+//            private final Fragment[] mFragments = new Fragment[] {
+//                    new com.quotify.www.quotify.fragment.RecentPostsFragment(),
+//                    new com.quotify.www.quotify.fragment.MyPostsFragment(),
+//                    new com.quotify.www.quotify.fragment.MyTopPostsFragment(),
+//            };
+              private final Fragment[] mFragments = new Fragment[] {
                     new com.quotify.www.quotify.fragment.RecentPostsFragment(),
                     new com.quotify.www.quotify.fragment.MyPostsFragment(),
                     new com.quotify.www.quotify.fragment.MyTopPostsFragment(),
-            };
+              };
             private final String[] mFragmentNames = new String[] {
-                    getString(R.string.heading_recent),
-                    getString(R.string.heading_my_posts),
-                    getString(R.string.heading_my_top_posts)
+                    getString(R.string.heading_leaderboard),
+                    getString(R.string.heading_answer),
+                    getString(R.string.heading_my_questions)
             };
             @Override
             public Fragment getItem(int position) {
