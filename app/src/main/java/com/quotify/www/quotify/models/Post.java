@@ -36,7 +36,7 @@ public class Post {
         result.put("author", author);
         result.put("title", title);
         result.put("body", body);
-        result.put("starCount", starCount);
+        result.put("rating", starCount);
         result.put("stars", stars);
 
         return result;

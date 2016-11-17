@@ -30,12 +30,12 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
 
     private static final String TAG = "QuestionDetailActivity";
 
-    public static final String EXTRA_POST_KEY = "post_key";
+    public static final String EXTRA_QUESTION_KEY = "question_key";
 
     private DatabaseReference mPostReference;
     private DatabaseReference mCommentsReference;
     private ValueEventListener mPostListener;
-    private String mPostKey;
+    private String mQuestionKey;
     private CommentAdapter mAdapter;
 
     private TextView mAuthorView;
@@ -51,16 +51,16 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
         setContentView(R.layout.activity_post_detail);
 
         // Get post key from intent
-        mPostKey = getIntent().getStringExtra(EXTRA_POST_KEY);
-        if (mPostKey == null) {
+        mQuestionKey = getIntent().getStringExtra(EXTRA_QUESTION_KEY);
+        if (mQuestionKey == null) {
             throw new IllegalArgumentException("Must pass EXTRA_USER_KEY");
         }
 
         // Initialize Database
         mPostReference = FirebaseDatabase.getInstance().getReference()
-                .child("posts").child(mPostKey);
+                .child("posts").child(mQuestionKey);
         mCommentsReference = FirebaseDatabase.getInstance().getReference()
-                .child("post-comments").child(mPostKey);
+                .child("post-comments").child(mQuestionKey);
 
         // Initialize Views
         mAuthorView = (TextView) findViewById(R.id.post_author);
@@ -72,7 +72,6 @@ public class QuestionDetailActivity extends BaseActivity implements View.OnClick
 
         mCommentButton.setOnClickListener(this);
         mCommentsRecycler.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
     @Override

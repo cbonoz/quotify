@@ -89,8 +89,8 @@ public class NewQuestionActivity extends com.quotify.www.quotify.BaseActivity {
 
                         // [START_EXCLUDE]
                         if (user == null) {
-                            // User is null, error out
-                            Log.e(TAG, "User " + userId + " is unexpectedly null");
+                            // DummyItem is null, error out
+                            Log.e(TAG, "DummyItem " + userId + " is unexpectedly null");
                             Toast.makeText(NewQuestionActivity.this,
                                     "Error: could not fetch user.",
                                     Toast.LENGTH_SHORT).show();

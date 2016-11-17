@@ -1,0 +1,25 @@
+
+Setting up MySql: How To Migrate a MySQL Database To A New Server On Ubuntu 14.04 | DigitalOcean-->
+https://www.digitalocean.com/community/tutorials/how-to-migrate-a-mysql-database-to-a-new-server-on-ubuntu-14-04
+https://www.digitalocean.com/community/tutorials/how-to-set-up-a-remote-database-to-optimize-site-performance-with-mysql
+To find ports that are currently active on a server, use:
+netstat -ntlp | grep LISTEN
+
+Don't store comma delimited lists in sql fields, here's why:
+http://stackoverflow.com/questions/3653462/is-storing-a-delimited-list-in-a-database-column-really-that-bad
+
+
+Schema:
+
+Question: # Holds question instances in the DB.
+    gorm.Model - ID, CreatedAt, UpdatedAt, DeletedAt
+    Author (string)
+    Body (string)
+    Answer (string)
+    Rating (int)
+
+Answer: # Holds the responses of users on specific questions.
+    User (string) - primary key
+    Question ID (int)
+    Correct (bool/int as 1 or 0)
+    

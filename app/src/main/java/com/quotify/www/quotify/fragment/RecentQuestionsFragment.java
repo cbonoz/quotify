@@ -13,7 +13,7 @@ public class RecentQuestionsFragment extends QuestionListFragment {
         // Last 100 posts, these are automatically the 100 most recent
         // due to sorting by push() keys
         Query recentPostsQuery = databaseReference.child("questions")
-                .limitToFirst(100);
+                .limitToFirst(25);
         // [END recent_posts_query]
 
         return recentPostsQuery;
